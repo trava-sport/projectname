@@ -1,0 +1,23 @@
+<odoo noupdate= "1">
+    <record id="res_partner_packt" model="res.partner" forcecreate="false">
+        <field name="name">Packt publishing</field>
+        <field name="city">Birmingham</field>
+        <field name="country_id" ref="base.uk"/>
+    </record>
+    <record id="book_category_all" model="library.book.category">
+        <field name="name">All books</field>
+    </record>
+    <record id="book_category_to_delete" model="library.book.category">
+        <field name="name">Test Category</field>
+    </record>
+    <record id="book_category_not_delete" model="library.book.category">
+        <field name="name">Test Category 2</field>
+    </record>
+
+    <delete model="library.book.category" id="book_category_to_delete"/>
+
+    <!-- To delete multiple records in batch you can use search option
+    <delete model="library.book.category" search="[('name', 'ilike', 'Test Category')]"/>
+    -->
+    <function model="library.book" name="_update_book_price"/>
+</odoo>

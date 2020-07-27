@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='library_book_member_action' model='ir.actions.act_window'>
+        <field name="name">Library Member</field>
+        <field name="res_model">library.member</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Library member" id="library_book__member_menu" parent="library_base_menu" action="library_book_member_action"/>
+
+    <record id="library_book_member_view_form" model="ir.ui.view">
+        <field name="name">Library Member Form</field>
+        <field name="model">library.member</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group>
+                        <field name="member_number"/>
+                        <field name="date_of_birth"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_book_view_tree" model="ir.ui.view">
+        <field name="name">Library Member List</field>
+        <field name="model">library.member</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- <record id="library_book_member_view_search" model="ir.ui.view">
+        <field name="name">Library Member Search</field>
+        <field name="model">library.member</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="author_ids"/>
+                <filter string="No Authors" name="without_author" domain="[('author_ids','=',False)]"/>
+            </search>
+        </field>
+    </record> -->
+
+</odoo>
