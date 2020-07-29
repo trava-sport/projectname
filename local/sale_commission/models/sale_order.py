@@ -7,10 +7,10 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.depends("order_line.agent_ids.amount")
+    @api.depends("order_line.agent_ids.remuneration")
     def _compute_commission_total(self):
         for record in self:
-            record.commission_total = sum(record.mapped("order_line.agent_ids.amount"))
+            record.commission_total = sum(record.mapped("order_line.agent_ids.remuneration"))
 
     commission_total = fields.Float(
         string="Commissions", compute="_compute_commission_total", store=True,
@@ -58,10 +58,10 @@ class SaleOrderLineAgent(models.Model):
     @api.depends(
         "object_id.price_subtotal", "object_id.product_id", "object_id.product_uom_qty"
     )
-    def _compute_amount(self):
+    def _compute_remuneration(self):
         for line in self:
             order_line = line.object_id
-            line.amount = line._get_commission_amount(
+            line.remuneration = line._get_commission_amount(
                 line.commission_id,
                 order_line.price_subtotal,
                 order_line.product_id,

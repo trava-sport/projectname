@@ -17,12 +17,12 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @api.depends("line_ids.agent_ids.amount")
+    @api.depends("line_ids.agent_ids.remuneration")
     def _compute_commission_total(self):
         for record in self:
             record.commission_total = 0.0
             for line in record.line_ids:
-                record.commission_total += sum(x.amount for x in line.agent_ids)
+                record.commission_total += sum(x.remuneration for x in line.agent_ids)
 
     def button_cancel(self):
         """Put settlements associated to the invoices in exception."""
@@ -94,10 +94,10 @@ class AccountInvoiceLineAgent(models.Model):
     currency_id = fields.Many2one(related="object_id.currency_id", readonly=True,)
 
     @api.depends("object_id.price_subtotal", "object_id.product_id.commission_free")
-    def _compute_amount(self):
+    def _compute_remuneration(self):
         for line in self:
             inv_line = line.object_id
-            line.amount = line._get_commission_amount(
+            line.remuneration = line._get_commission_amount(
                 line.commission_id,
                 inv_line.price_subtotal,
                 inv_line.product_id,
@@ -105,7 +105,7 @@ class AccountInvoiceLineAgent(models.Model):
             )
             # Refunds commissions are negative
             if line.invoice_id.type and "refund" in line.invoice_id.type:
-                line.amount = -line.amount
+                line.remuneration = -line.remuneration
 
     @api.depends(
         "agent_line", "agent_line.settlement_id.state", "invoice_id", "invoice_id.state"
@@ -123,7 +123,7 @@ class AccountInvoiceLineAgent(models.Model):
         for line in self:
             line.company_id = line.object_id.company_id
 
-    @api.constrains("agent_id", "amount")
+    @api.constrains("agent_id", "remuneration")
     def _check_settle_integrity(self):
         for record in self:
             if any(record.mapped("settled")):

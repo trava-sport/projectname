@@ -155,7 +155,7 @@ class SettlementLine(models.Model):
         store=True,
     )
     settled_amount = fields.Monetary(
-        related="agent_line.amount", readonly=True, store=True
+        related="agent_line.remuneration", readonly=True, store=True
     )
     currency_id = fields.Many2one(
         related="agent_line.currency_id", store=True, readonly=True,
