@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo import _, api, models, fields
+from odoo import _, api, exceptions, models, fields
 
 
 class Agreement(models.Model):
@@ -85,3 +85,11 @@ class Agreement(models.Model):
             return super().copy(default)
         default.setdefault('code', _("%s (copy)") % (self.code))
         return super().copy(default)
+
+    @api.constrains("start_date", "end_date")
+    def _check_amounts(self):
+        for agreement in self:
+            if agreement.end_date < agreement.start_date:
+                raise exceptions.ValidationError(
+                    _("The start date of the period must be earlier than the end date of the period.")
+                )
