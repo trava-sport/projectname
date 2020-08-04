@@ -56,7 +56,7 @@ class SaleCommissionAnalysisReport(models.Model):
             SUM(ail.price_subtotal) AS price_subtotal,
             SUM(ail.balance) AS balance,
             AVG(sc.fix_qty) AS percentage,
-            SUM(aila.amount) AS amount,
+            SUM(aila.remuneration) AS remuneration,
             ail.id AS invoice_line_id,
             aila.settled AS settled,
             aila.commission_id AS commission_id

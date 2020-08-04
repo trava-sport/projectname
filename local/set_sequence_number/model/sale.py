@@ -2,7 +2,7 @@
 from odoo import models, api, fields
 
 
-class StockRule(models.Model):
+""" class StockRule(models.Model):
     _inherit = 'stock.rule'
 
     sequence_ref = fields.Integer('No.', help="Gives the sequence order when displaying a list of sales order lines.")
@@ -11,7 +11,7 @@ class StockRule(models.Model):
         result = super(StockRule, self)._get_stock_move_values(product_id, product_qty, product_uom, location_id, name, origin, values, group_id)
         if values.get('sequence_ref', False):
             result['sequence_ref'] = values['sequence_ref']
-        return result
+        return result """
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'

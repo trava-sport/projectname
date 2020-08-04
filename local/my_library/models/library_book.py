@@ -73,16 +73,23 @@ class LibraryBook(models.Model):
       groups='my_library.group_library_librarian')
     image = fields.Binary(attachment=True)
     html_description = fields.Html()
-    book_issue_ids = fields.One2many('book.issue', 'book_id')
+    book_issue_ids = fields.One2many('book.issue', 'book_id', copy=True, auto_join=True)
     restrict_country_ids = fields.Many2many('res.country')
     color = fields.Integer()
 
-    age_days = fields.Float(
+    """ age_days = fields.Float(
         string='Кол-во дней с релиза',
         compute='_compute_age',
         inverse='_inverse_age',
         search='_search_age',
         store=False, # optional
+        compute_sudo=False # optional
+    ) """
+
+    age_days = fields.Float(
+        string='Кол-во дней с релиза',
+        compute='_compute_age',
+        store=True, # optional
         compute_sudo=False # optional
     )
 
@@ -113,12 +120,17 @@ class LibraryBook(models.Model):
             if record.date_release and record.date_release > fields.Date.today():
                 raise models.ValidationError('Release date must be in the past')
 
-    @api.depends('date_release')
+    """ @api.depends('date_release')
     def _compute_age(self):
         today = fields.Date.today()
         for book in self.filtered('date_release'):
             delta = today - book.date_release
-            book.age_days = delta.days
+            book.age_days = delta.days """
+
+    @api.depends('pages')
+    def _compute_age(self):
+        for book in self:
+            book.age_days = book.pages
 
     def _inverse_age(self):
         today = fields.Date.today()
@@ -373,8 +385,7 @@ class LibraryMember(models.Model):
     _name = 'library.member'
     _inherits = {'res.partner': 'partner_id'}
     partner_id = fields.Many2one(
-        'res.partner',
-        ondelete='cascade')
+        'res.partner', ondelete='cascade', required=True)
     date_start = fields.Date('Member Since')
     date_end = fields.Date('Termination Date')
     member_number = fields.Char()
@@ -428,6 +439,6 @@ class LibraryBookIssues(models.Model):
 
     _inherit = ['utm.mixin']
 
-    book_id = fields.Many2one('library.book', required=True)
+    book_id = fields.Many2one('library.book', required=True, ondelete='cascade', index=True, copy=False)
     submitted_by = fields.Many2one('res.users')
     issue_description = fields.Text()

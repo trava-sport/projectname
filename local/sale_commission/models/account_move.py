@@ -47,6 +47,11 @@ class AccountMoveLine(models.Model):
 
     agent_ids = fields.One2many(comodel_name="account.invoice.line.agent")
     any_settled = fields.Boolean(compute="_compute_any_settled")
+    sale_line_ids = fields.Many2many(
+        'commission.agent.report.line',
+        'commission_agent_line_invoice_rel',
+        'invoice_line_id', 'commission_line_id',
+        string='Commission Agent Report Line', readonly=True, copy=False)
 
     @api.depends("agent_ids", "agent_ids.settled")
     def _compute_any_settled(self):

@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+    <record id="report_commission_agent_form" model="ir.ui.view">
+        <field name="name">report_commission_agent.form</field>
+        <field name="model">commission.agent.report</field>
+        <field name="arch" type="xml">
+            <form string="Commission agent report">
+                <header>
+                    <field name="authorized_transaction_ids" invisible="1"/>
+                    <button name="payment_action_capture" type="object" string="Capture Transaction" class="oe_highlight" attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+                    <button name="payment_action_void" type="object" string="Void Transaction" confirm="Are you sure you want to void the authorized transaction? This action can't be undone." attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+                    <button name="create_invoices" string="Create Invoice" type="object" class="btn-primary" attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+                    <button name="create_invoices" string="Create Invoice" type="object" context="{'default_advance_payment_method': 'percentage'}" attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary"/>
+                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+                    <button name="action_confirm" string="Confirm" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/>
+                    <button name="action_cancel" states="draft,sent,sale" type="object" string="Cancel"/>
+                    <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sale"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="preview_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Customer</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                        <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+
+                    <div>
+                        <h1>
+                        The resulting report of the Commission <field name="number" style="width:3%" />
+ from 
+                        <field name="signature_date" class="oe_inline" nolabel="1" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" style="width:30%"/>
+                    </h1>
+                </div>
+                <group name="main">
+                    <group name="left">
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                        <div>
+                            Incoming number <field name="incoming_number" style="width:10%" />
+ from
+                        <field name="incoming_signature_date" class="oe_inline" style="width:30%"/>
+
+                    </div>
+                </group>
+
+                <group name="right">
+                    <field name="start_date" attrs="{'invisible': [('state', 'in', ['sale', 'done'])]}"/>
+                    <field name="end_date" attrs="{'invisible': [('state', 'in', ['sale', 'done'])]}"/>
+                    <field name="agreement_id" domain="[('partner_id', 'child_of', commercial_partner_id), ('domain', '=', 'sale')]"
+                            context="{'default_partner_id': commercial_partner_id, 'default_domain': 'sale'}"/>
+                    <field name="commission_id"/>
+                    <field name="payment_term_id" options="{'no_open':True,'no_create': True}"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="commercial_partner_id" invisible="1"/>
+                </group>
+            </group>
+            <notebook>
+                <page name="config" string="Configuration">
+                    <field name="commission_line" widget="section_and_note_one2many" mode="tree,kanban" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+                        <tree name="Commission Lines" editable="bottom" decoration-info="(not display_type and invoice_status == 'to invoice')">
+
+                            <control>
+                                <create name="add_product_control" string="Add a product"/>
+                                <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                            </control>
+
+                            <!-- We do not display the type because we don't want the user to be bothered with that information if he has no section or note. -->
+                            <field name="display_type" invisible="1"/>
+                            <field name="product_updatable" invisible="1"/>
+
+                            <!-- <field name="product_template_id" string="Product" invisible="1" widget="product_configurator"/> -->
+                            <field name="product_id" widget="product_configurator" attrs="{
+                                            'readonly': [('product_updatable', '=', False)],
+                                            'required': [('display_type', '=', False)],
+                                        }"/>
+                            <field name="product_uom_qty"/>
+                            <field name="price_unit" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                            <field name="tax_id" widget="many2many_tags" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                            <field name="amount" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <field name="remuneration" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <field name="state" invisible="1"/>
+                            <field name="invoice_status" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="price_tax" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="name" invisible="1"/>
+                            <field
+                                        name="qty_invoiced"
+                                        string="Invoiced"
+                                        attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}"
+                                        optional="show"
+                                    />
+                                    <field name="qty_to_invoice" invisible="1"/>
+                        </tree>
+                    </field>
+                    <group name="note_group" col="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                            <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_total" />
+                            </div>
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_commission_agent_remuneration" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_committee" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_quantity"/>
+                        </group>
+                        <div class="oe_clear"/>
+                    </group>
+                </page>
+                <page string="Other Info" name="other_information">
+                    <group>
+                        <group name="sales_person" string="Sales">
+                            <field name="user_id"/>
+                            <field name="team_id" kanban_view_ref="%(sales_team.crm_team_view_kanban)s" options="{'no_create': True}"/>
+                            <field name="require_signature"/>
+                            <field name="require_payment"/>
+                            <field name="reference" readonly="1" attrs="{'invisible': [('reference', '=', False)]}"/>
+                            <field name="client_order_ref"/>
+                        </group>
+                        <group name="sale_info" string="Invoicing">
+                            <field name="fiscal_position_id" options="{'no_create': True}"/>
+                            <field name="analytic_account_id" context="{'default_partner_id':partner_id, 'default_name':name}" attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
+                            <field name="invoice_status" states="sale,done" groups="base.group_no_one"/>
+                            <field name="name" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+                <page groups="base.group_no_one" string="Customer Signature" name="customer_signature" attrs="{'invisible': [('require_signature', '=', False), ('signed_by', '=', False), ('signature', '=', False), ('signed_on', '=', False)]}">
+                    <group>
+                        <field name="signed_by"/>
+                        <field name="signed_on"/>
+                        <field name="signature" widget="image"/>
+                    </group>
+                </page>
+            </notebook>
+        </sheet>
+        <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+        </div>
+    </form>
+</field>
+</record>
+
+<record id="report_commission_agent_tree" model="ir.ui.view">
+<field name="name">report_commission_agent.tree</field>
+<field name="model">commission.agent.report</field>
+<field name="arch" type="xml">
+    <tree string="Commission agent report">
+        <field name="name"/>
+        <field name="company_id"/>
+        <field name="partner_id"/>
+        <field name="amount_total"/>
+        <field name="amount_commission_agent_remuneration"/>
+        <field name="amount_committee"/>
+    </tree>
+</field>
+</record>
+
+<!-- <record id="agreement_search" model="ir.ui.view">
+    <field name="name">agreement.search</field>
+    <field name="model">agreement</field>
+    <field name="arch" type="xml">
+        <search string="Search Agreements">
+            <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]" string="Name or Number"/>
+            <field name="partner_id"/>
+            <separator/>
+            <filter name="sale" string="Sale" domain="[('domain', '=', 'sale')]"/>
+            <filter name="purchase" string="Purchase" domain="[('domain', '=', 'purchase')]"/>
+            <separator/>
+            <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+            <group name="groupby">
+                <filter name="partner_groupby" string="Partner" context="{'group_by': 'partner_id'}"/>
+                <filter name="signature_date_groupby" string="Signature Date" context="{'group_by': 'signature_date'}"/>
+                <filter name="domain_groupby" string="Domain" context="{'group_by': 'domain'}"/>
+            </group>
+        </search>
+    </field>
+</record> -->
+
+<record id="action_report_commission_agent" model="ir.actions.act_window">
+<field name="name">Commission agent report</field>
+<field name="res_model">commission.agent.report</field>
+<field name="view_mode">tree,form</field>
+</record>
+
+
+<!-- Top menu item -->
+<menuitem name="Reports of the Commission" id="menu_reports_commissions" parent="menu_sale_commissions_management" action="action_report_commission_agent" sequence="6" />
+
+</odoo>

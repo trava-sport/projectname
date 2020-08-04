@@ -6,3 +6,5 @@ from . import product_template
 from . import res_partner
 from . import sale_order
 from . import settlement
+from . import commission_agent_report
+from . import commission_order

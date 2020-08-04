@@ -11,7 +11,7 @@ class Agreement(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     code = fields.Char(required=True, track_visibility='onchange')
-    name = fields.Char(compute='_compute_number_agreement', required=True)
+    name = fields.Char(compute='_compute_number_agreement', required=True, store=True)
     number = fields.Integer(string='Contract number', required=True, track_visibility='onchange')
     partner_id = fields.Many2one(
         'res.partner', string='Partner', ondelete='restrict',
