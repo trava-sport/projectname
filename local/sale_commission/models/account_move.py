@@ -9,7 +9,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     commission_total = fields.Float(
-        string="Commissions", compute="_compute_commission_total", store=True,
+        string="Commissions", store=True,
     )
     settlement_id = fields.Many2one(
         comodel_name="sale.commission.settlement",
@@ -17,22 +17,23 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @api.depends("line_ids.agent_ids.remuneration")
+    """ sss """
+
+    """ @api.depends("line_ids.agent_ids.remuneration")
     def _compute_commission_total(self):
         for record in self:
             record.commission_total = 0.0
             for line in record.line_ids:
-                record.commission_total += sum(x.remuneration for x in line.agent_ids)
+                record.commission_total += sum(x.remuneration for x in line.agent_ids) """
 
     def button_cancel(self):
         """Put settlements associated to the invoices in exception."""
         self.settlement_id.state = "except_invoice"
         return super().button_cancel()
 
-    def post(self):
-        """Put settlements associated to the invoices in invoiced state."""
+    """ def post(self):
         self.settlement_id.state = "invoiced"
-        return super().post()
+        return super().post() """
 
     def recompute_lines_agents(self):
         self.mapped("invoice_line_ids").recompute_agents()
@@ -47,7 +48,7 @@ class AccountMoveLine(models.Model):
 
     agent_ids = fields.One2many(comodel_name="account.invoice.line.agent")
     any_settled = fields.Boolean(compute="_compute_any_settled")
-    sale_line_ids = fields.Many2many(
+    commission_line_ids = fields.Many2many(
         'commission.agent.report.line',
         'commission_agent_line_invoice_rel',
         'invoice_line_id', 'commission_line_id',

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_sale_commission_analysis_pivot" model="ir.ui.view">
+    <!-- <record id="view_sale_commission_analysis_pivot" model="ir.ui.view">
         <field name="name">sale.commission.analysis.pivot</field>
         <field name="model">sale.commission.analysis.report</field>
         <field name="arch" type="xml">
@@ -99,13 +99,28 @@
                 </group>
             </search>
         </field>
-    </record>
+    </record> -->
+
+    <!-- <record id="view_sale_commission_analysis_tree" model="ir.ui.view">
+            <field name="name">sale.commission.analysis.tree</field>
+        <field name="model">sale.commission.analysis.report</field>
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <tree string="Product Margins">
+                    <field name="agent_id" />
+                    <field name="partner_id" />
+                    <field name="product_id" />
+                    <field name="x_paid_sum" />
+            </tree>
+            </field>
+        </record> -->
     <record id="action_sale_commission_analysis_report" model="ir.actions.act_window">
         <field name="name">Commission Analysis</field>
         <field name="res_model">sale.commission.analysis.report</field>
-        <field name="binding_view_types">form,pivot,graph</field>
-        <field name="search_view_id" ref="view_sale_commission_analysis_search" />
-        <field name="view_id" ref="view_sale_commission_analysis_graph" />
+        <!-- <field name="binding_view_types">form,pivot,graph,tree</field> -->
+        <field name="binding_view_types">form</field>
+        <!-- <field name="search_view_id" ref="view_sale_commission_analysis_search" />
+        <field name="view_id" ref="view_sale_commission_analysis_graph" /> -->
         <field
             name="help"
         >This report performs analysis on your commissions added in invoice lines. You can check the amount and lines that will be settled by date, product, product category, aget, etc. Use this report to perform analysis on invoice lines agents not beeing settled yet.</field>

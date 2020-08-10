@@ -10,7 +10,7 @@ class SaleCommissionAnalysisReport(models.Model):
     _name = "sale.commission.analysis.report"
     _description = "Sale Commission Analysis Report"
     _auto = False
-    _rec_name = "commission_id"
+    """ _rec_name = "commission_id" """
 
     @api.model
     def _get_selection_invoice_state(self):
@@ -33,16 +33,17 @@ class SaleCommissionAnalysisReport(models.Model):
     price_subtotal = fields.Float("Price subtotal", readonly=True)
     balance = fields.Float(string="Balance", readonly=True,)
     percentage = fields.Integer("Percentage of commission", readonly=True)
-    amount = fields.Float("Amount", readonly=True)
+    """ amount = fields.Float("Amount", readonly=True) """
     invoice_line_id = fields.Many2one(
         "account.move.line", "Invoice line", readonly=True
     )
     settled = fields.Boolean("Settled", readonly=True)
     commission_id = fields.Many2one("sale.commission", "Sale commission", readonly=True)
+    x_paid_sum = fields.Float("Price subtotal22", readonly=True)
 
     def _select(self):
         select_str = """
-            SELECT MIN(aila.id) AS id,
+            SELECT min(aila.id) AS id,
             ai.partner_id AS partner_id,
             ai.state AS invoice_state,
             ai.date AS date_invoice,
@@ -59,7 +60,12 @@ class SaleCommissionAnalysisReport(models.Model):
             SUM(aila.remuneration) AS remuneration,
             ail.id AS invoice_line_id,
             aila.settled AS settled,
-            aila.commission_id AS commission_id
+            aila.commission_id AS commission_id,
+            (SELECT
+                    SUM(l.amount) 
+                FROM commission_agent_report s
+                LEFT JOIN commission_agent_report_line l ON (l.report_id = s.id)
+                WHERE s.state IN ('sale', 'done')) AS x_paid_sum
         """
         return select_str
 
@@ -75,6 +81,12 @@ class SaleCommissionAnalysisReport(models.Model):
         """
         return from_str
 
+    def _where(self):
+        where_str = """
+            WHERE ai.state IN ('posted')
+        """
+        return where_str
+
     def _group_by(self):
         group_by_str = """
             GROUP BY ai.partner_id,
@@ -87,7 +99,8 @@ class SaleCommissionAnalysisReport(models.Model):
             pt.uom_id,
             ail.id,
             aila.settled,
-            aila.commission_id
+            aila.commission_id,
+            ai.id
         """
         return group_by_str
 
@@ -95,11 +108,12 @@ class SaleCommissionAnalysisReport(models.Model):
     def init(self):
         tools.drop_view_if_exists(self._cr, self._table)
         self._cr.execute(
-            "CREATE or REPLACE VIEW %s AS ( %s FROM ( %s ) %s )",
+            "CREATE or REPLACE VIEW %s AS ( %s FROM ( %s ) %s %s )",
             (
                 AsIs(self._table),
                 AsIs(self._select()),
                 AsIs(self._from()),
+                AsIs(self._where()),
                 AsIs(self._group_by()),
             ),
         )
