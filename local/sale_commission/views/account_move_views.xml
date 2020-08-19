@@ -7,7 +7,7 @@
             <tree string="Invoice line agents and commissions" editable="bottom">
                 <field name="agent_id" context="{'default_agent': True}" />
                 <field name="commission_id" />
-                <field name="remuneration" />
+                <field name="amount" />
             </tree>
         </field>
     </record>

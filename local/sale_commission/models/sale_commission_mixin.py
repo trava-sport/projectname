@@ -115,13 +115,13 @@ class SaleCommissionLineMixin(models.AbstractModel):
         readonly=False,
         copy=True,
     )
-    remuneration = fields.Monetary(
-        string="Commission Amount", compute="_compute_remuneration", store=True,
+    amount = fields.Monetary(
+        string="Commission Amount", compute="_compute_amount", store=True,
     )
     # Fields to be overriden with proper source (via related or computed field)
     currency_id = fields.Many2one(comodel_name="res.currency")
 
-    def _compute_remuneration(self):
+    def _compute_amount(self):
         """Compute method to be implemented by inherited models."""
         raise NotImplementedError()
 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_google_spreadsheet_backend_form" model="ir.ui.view">
+          <field name="model">google.spreadsheet.backend</field>
+          <field name="arch" type="xml">
+            <form string="Google Spreadsheet Backend">
+              <sheet class="oe_form_sheet_full_screen">
+                <h1>Google Spreadsheet Import</h1>
+                <group col="4">
+                    <field name="name"/>
+                    <button name="active_cron_sheet" string="Trigger Initial Import"
+                            help="Import all tasks with 'auto' field checked and with no 'submission date': a planified task (cron) run one task at once."
+                            type="object"/>
+                    <h3 attrs="{'invisible': [('p12_key', '!=', False), ('version', '!=', False), ('email', '!=', False)]}"
+                         class="text-info" colspan="4">Please, complete required fields in configuration tab before to save the form.</h3>
+                </group>
+                <notebook>
+                  <page name="task" string="Tasks">
+                    <field name="task_result"/>
+                    <group colspan="6">
+                      <field name="document_ids" nolabel="1"
+                          context="{'google_spreadsheet_id': active_id}">
+                        <tree>
+                          <field name="sequence" widget="handle"/>
+                          <field name="auto"/>
+                          <field name="name"/>
+                          <field name="document_sheet"/>
+                          <button name="run" string="Run"
+                                  icon="gtk-go-forward"
+                                  type="object"
+                                  attrs="{'invisible': [('active', '=', False)]}"/>
+                          <field name="active" invisible="1"/>
+                          <field name="submission_date"/>
+                          <field name="data_row_start"/>
+                          <field name="data_row_end"/>
+                          <field name="chunk_size"/>
+                          <button name="toggle_chunk_size"
+                                  icon="gtk-about"
+                                  help="Toggle chunk size between 1 and 100"
+                                  attrs="{'invisible': [('active', '=', False)]}"
+                                  type="object"/>
+                        </tree>
+                        <form>
+                          <group colspan="4">
+                            <group>
+                              <field name="name"/>
+                              <field name="active" />
+                              <field name="submission_date"/>
+                              <field name="model_id"/>
+                              <field name="chunk_size"/>
+                              <field name="auto"/>
+                            </group>
+                            <group>
+                              <separator string="Data Position in Sheet" colspan="4"/>
+                              <field name="header_row"/>
+                              <field name="data_row_start"/>
+                              <field name="data_row_end"/>
+                            </group>
+                            <separator string="Spreadsheet Location" colspan="4"/>
+                            <label for="document_url"/>
+                            <field name="document_url" colspan="4" nolabel="1"/>
+                            <field name="document_sheet"/>
+                          </group>
+                        </form>
+                      </field>
+                    </group>
+                  </page>
+                  <page name="config" string="Configuration">
+                    <group col="4">
+                        <field name="version"/>
+                        <field name="p12_key"/>
+                        <field name="email" colspan="2"/>
+                    </group>
+                    <span/>
+                    <span/>
+                  </page>
+                </notebook>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="view_google_spreadsheet_backend_tree" model="ir.ui.view">
+          <field name="model">google.spreadsheet.backend</field>
+          <field name="arch" type="xml">
+            <tree string="Google Spreadsheet Backends">
+              <field name="name"/>
+              <field name="version"/>
+            </tree>
+          </field>
+        </record>
+
+        <record id="action_google_spreadsheet_backend" model="ir.actions.act_window">
+          <field name="name">Google Spreadsheet Backends</field>
+          <field name="res_model">google.spreadsheet.backend</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="view_id" ref="view_google_spreadsheet_backend_tree"/>
+        </record>
+
+        <menuitem id="menu_google_spreadsheet_root"
+                  parent="connector.menu_connector_root"
+                  name="Google Spreadsheet"
+                  sequence="10"
+                  groups="connector.group_connector_manager"/>
+
+        <menuitem id="menu_google_spreadsheet_backend"
+                  name="Backends"
+                  parent="menu_google_spreadsheet_root"
+                  action="action_google_spreadsheet_backend"/>
+
+        <record id="view_spreadsheet_task_tree" model="ir.ui.view">
+            <field name="model">google.spreadsheet.document</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            <tree string="Spreadsheet">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="document_sheet"/>
+                <field name="data_row_start"/>
+                <field name="data_row_end"/>
+                <field name="chunk_size"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="action_spreadsheet_task" model="ir.actions.act_window">
+          <field name="name">Spreadsheet Tasks</field>
+          <field name="res_model">google.spreadsheet.document</field>
+          <field name="view_mode">tree</field>
+          <field name="view_id" ref="view_spreadsheet_task_tree"/>
+        </record>
+
+        <menuitem id="menu_export_spreadsheet_task"
+                  name="Export Tasks"
+                  parent="menu_google_spreadsheet_root"
+                  action="action_spreadsheet_task"/>
+
+
+        <!-- After installation of the module, open the related menu -->
+        <record id="action_google_spreadsheet_backend" model="ir.actions.client">
+          <field name="name">Open Google Spreadsheet backend menu</field>
+          <field name="tag">reload</field>
+          <field name="params" eval="{'menu_id': ref('menu_google_spreadsheet_backend')}"/>
+        </record>
+        <record id="base.open_menu" model="ir.actions.todo">
+          <field name="action_id" ref="action_google_spreadsheet_backend"/>
+          <field name="state">open</field>
+        </record>
+
+    </data>
+</odoo>

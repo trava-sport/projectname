@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+
+<!-- Export field profile -->
+<record id="ir_exp_spreadsheet" model="ir.exports">
+    <field name="name">Spreadsheet</field>
+    <field name="resource">google.spreadsheet.document</field>
+</record>
+
+<record id="spreadsh1" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">name</field>
+</record>
+
+<record id="spreadsh2" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">model_id</field>
+</record>
+
+<record id="spreadsh3" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">document_sheet</field>
+</record>
+
+<record id="spreadsh32" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">auto</field>
+</record>
+
+<record id="spreadsh35" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">active</field>
+</record>
+
+<record id="spreadsh4" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">header_row</field>
+</record>
+
+<record id="spreadsh5" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">data_row_start</field>
+</record>
+
+<record id="spreadsh6" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">data_row_end</field>
+</record>
+
+<record id="spreadsh7" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">chunk_size</field>
+</record>
+
+<record id="spreadsh8" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">sequence</field>
+</record>
+
+<record id="spreadsh9" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">backend_id</field>
+</record>
+
+<record id="spreadsh10" model="ir.exports.line">
+    <field name="export_id" ref="ir_exp_spreadsheet"/>
+    <field name="name">document_url</field>
+</record>
+
+
+    </data>
+</odoo>

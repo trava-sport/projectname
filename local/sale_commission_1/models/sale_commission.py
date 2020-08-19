@@ -3,33 +3,33 @@
 from odoo import _, api, exceptions, fields, models
 
 
-class SaleCommission_1(models.Model):
-    _name = "sale.commission_1"
-    _description = "Комиссия в продажах"
+class SaleCommission(models.Model):
+    _name = "sale.commission"
+    _description = "Commission in sales"
 
-    name = fields.Char("Название", required=True)
+    name = fields.Char("Name", required=True)
     commission_type = fields.Selection(
-        selection=[("fixed", "Фиксированный процент"), ("section", "Процент зависящий от цены")],
-        string="Тип комиссии",
+        selection=[("fixed", "Fixed percentage"), ("section", "By sections")],
+        string="Type",
         required=True,
         default="fixed",
     )
-    fix_qty = fields.Float(string="Фиксированный процент")
+    fix_qty = fields.Float(string="Fixed percentage")
     section_ids = fields.One2many(
-        string="Разделы",
+        string="Sections",
         comodel_name="sale.commission.section",
         inverse_name="commission_id",
     )
-    active = fields.Boolean(string="Активный", default=True)
+    active = fields.Boolean(default=True)
     invoice_state = fields.Selection(
-        [("open", "Счет"), ("paid", "Оплата на основе")],
-        string="Статус счета",
+        [("open", "Invoice Based"), ("paid", "Payment Based")],
+        string="Invoice Status",
         required=True,
         default="open",
     )
     amount_base_type = fields.Selection(
-        selection=[("gross_amount", "Ощая сумма"), ("net_amount", "Чистый доход")],
-        string="Основа",
+        selection=[("gross_amount", "Gross Amount"), ("net_amount", "Net Amount")],
+        string="Base",
         required=True,
         default="gross_amount",
     )
@@ -42,19 +42,19 @@ class SaleCommission_1(models.Model):
         return 0.0
 
 
-class SaleCommissionSection_1(models.Model):
-    _name = "sale.commission.section_1"
-    _description = "Секция комиссии"
+class SaleCommissionSection(models.Model):
+    _name = "sale.commission.section"
+    _description = "Commission section"
 
-    commission_id = fields.Many2one("sale.commission", string="Комиссия")
-    amount_from = fields.Float(string="От")
-    amount_to = fields.Float(string="До")
-    percent = fields.Float(string="Процент", required=True)
+    commission_id = fields.Many2one("sale.commission", string="Commission")
+    amount_from = fields.Float(string="From")
+    amount_to = fields.Float(string="To")
+    percent = fields.Float(string="Percent", required=True)
 
     @api.constrains("amount_from", "amount_to")
     def _check_amounts(self):
         for section in self:
             if section.amount_to < section.amount_from:
                 raise exceptions.ValidationError(
-                    _("Нижний предел не может быть больше верхнего.")
+                    _("The lower limit cannot be greater than upper one.")
                 )

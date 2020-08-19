@@ -9,7 +9,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     commission_total = fields.Float(
-        string="Commissions", store=True,
+        string="Commissions", compute="_compute_commission_total", store=True,
     )
     settlement_id = fields.Many2one(
         comodel_name="sale.commission.settlement",
@@ -17,23 +17,22 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    """ sss """
-
-    """ @api.depends("line_ids.agent_ids.remuneration")
+    @api.depends("line_ids.agent_ids.amount")
     def _compute_commission_total(self):
         for record in self:
             record.commission_total = 0.0
             for line in record.line_ids:
-                record.commission_total += sum(x.remuneration for x in line.agent_ids) """
+                record.commission_total += sum(x.amount for x in line.agent_ids)
 
     def button_cancel(self):
         """Put settlements associated to the invoices in exception."""
         self.settlement_id.state = "except_invoice"
         return super().button_cancel()
 
-    """ def post(self):
+    def post(self):
+        """Put settlements associated to the invoices in invoiced state."""
         self.settlement_id.state = "invoiced"
-        return super().post() """
+        return super().post()
 
     def recompute_lines_agents(self):
         self.mapped("invoice_line_ids").recompute_agents()
@@ -48,11 +47,6 @@ class AccountMoveLine(models.Model):
 
     agent_ids = fields.One2many(comodel_name="account.invoice.line.agent")
     any_settled = fields.Boolean(compute="_compute_any_settled")
-    commission_line_ids = fields.Many2many(
-        'commission.agent.report.line',
-        'commission_agent_line_invoice_rel',
-        'invoice_line_id', 'commission_line_id',
-        string='Commission Agent Report Line', readonly=True, copy=False)
 
     @api.depends("agent_ids", "agent_ids.settled")
     def _compute_any_settled(self):
@@ -100,10 +94,10 @@ class AccountInvoiceLineAgent(models.Model):
     currency_id = fields.Many2one(related="object_id.currency_id", readonly=True,)
 
     @api.depends("object_id.price_subtotal", "object_id.product_id.commission_free")
-    def _compute_remuneration(self):
+    def _compute_amount(self):
         for line in self:
             inv_line = line.object_id
-            line.remuneration = line._get_commission_amount(
+            line.amount = line._get_commission_amount(
                 line.commission_id,
                 inv_line.price_subtotal,
                 inv_line.product_id,
@@ -111,7 +105,7 @@ class AccountInvoiceLineAgent(models.Model):
             )
             # Refunds commissions are negative
             if line.invoice_id.type and "refund" in line.invoice_id.type:
-                line.remuneration = -line.remuneration
+                line.amount = -line.amount
 
     @api.depends(
         "agent_line", "agent_line.settlement_id.state", "invoice_id", "invoice_id.state"
@@ -129,7 +123,7 @@ class AccountInvoiceLineAgent(models.Model):
         for line in self:
             line.company_id = line.object_id.company_id
 
-    @api.constrains("agent_id", "remuneration")
+    @api.constrains("agent_id", "amount")
     def _check_settle_integrity(self):
         for record in self:
             if any(record.mapped("settled")):

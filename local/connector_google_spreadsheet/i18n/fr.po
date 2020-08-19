@@ -1,0 +1,322 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* connector_google_spreadsheet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-25 10:18+0000\n"
+"PO-Revision-Date: 2015-10-25 11:22+0100\n"
+"Last-Translator: David BEAL <david.beal@akretion.com>\n"
+"Language-Team: Akretion\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.5\n"
+"X-Poedit-Basepath: /home/david/.voodoo/shared\n"
+"X-Poedit-SearchPath-0: shared_odoo/odoo8\n"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,active:0
+msgid "Active"
+msgstr "Active"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,auto:0
+msgid "Auto"
+msgstr "Auto"
+
+#. module: connector_google_spreadsheet
+#: model:ir.ui.menu,name:connector_google_spreadsheet.menu_google_spreadsheet_backend
+msgid "Backends"
+msgstr "Backends"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.backend,name:0
+msgid "Choose a name according tasks defined below."
+msgstr "Choisir un nom selon les tâches définies ci-dessous."
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,chunk_size:0
+msgid "Chunk size"
+msgstr "Extraction de lignes"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,header_row:0
+msgid "Columns name position"
+msgstr "Columns name position"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,create_uid:0
+#: field:google.spreadsheet.document,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,create_date:0
+#: field:google.spreadsheet.document,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Data Position in Sheet"
+msgstr "Position des données dans la feuille"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,document_sheet:0
+msgid "Document tab name"
+msgstr "Nom de l'onglet du document"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,model_id:0
+msgid "ERP Model"
+msgstr "Modèle de l'ERP"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,email:0
+msgid "Email"
+msgstr "Email"
+
+#. module: connector_google_spreadsheet
+#: model:ir.ui.menu,name:connector_google_spreadsheet.menu_export_spreadsheet_task
+msgid "Export Tasks"
+msgstr "Tâches d'Export"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,data_row_start:0
+msgid "First Row"
+msgstr "Première Ligne"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,data_row_start:0
+msgid "First row of data"
+msgstr "Première ligne de données"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.backend,version:0
+msgid ""
+"Google Sheet API\n"
+"https://developers.google.com/google-apps/spreadsheets/"
+msgstr ""
+"Google Sheet API\n"
+"https://developers.google.com/google-apps/spreadsheets/"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.backend,p12_key:0
+msgid ""
+"Google Sheets Key\n"
+" see https://developers.google.com/console/help/new/#service_accounts"
+msgstr ""
+"Google Sheets Key\n"
+" see https://developers.google.com/console/help/new/#service_accounts"
+
+#. module: connector_google_spreadsheet
+#: model:ir.ui.menu,name:connector_google_spreadsheet.menu_google_spreadsheet_root
+msgid "Google Spreadsheet"
+msgstr "Feuille de calcul Google"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+#: field:google.spreadsheet.document,backend_id:0
+#: model:ir.model,name:connector_google_spreadsheet.model_google_spreadsheet_backend
+msgid "Google Spreadsheet Backend"
+msgstr "Backend Feuille de calcul Google"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_tree
+msgid "Google Spreadsheet Backends"
+msgstr "Backends Feuille de calcul Google"
+
+#. module: connector_google_spreadsheet
+#: model:ir.model,name:connector_google_spreadsheet.model_google_spreadsheet_document
+msgid "Google Spreadsheet Document"
+msgstr "Document Google Spreadsheet"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Google Spreadsheet Import"
+msgstr "Import de Google Spreadsheet"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.backend,email:0
+msgid "Google developer email account"
+msgstr "Courriel de compte développeur google"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,document_ids:0
+msgid "Google spreadsheet documents"
+msgstr "Documents feuille de calcul Google"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,header_row:0
+msgid "Header"
+msgstr "Entête"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.backend,task_result:0
+msgid "Here is the log of last action occured during the importation process"
+msgstr "Voici les log de la dernière action pendant le process d'importation."
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,id:0
+#: field:google.spreadsheet.document,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,auto:0
+msgid ""
+"If checked, tasks are run at startup (until all those tasks are launched)"
+msgstr ""
+"Si coché, les tâches sont joués au démarrage (jusqu'à ce que toutes les "
+"tâches soient lancés)"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid ""
+"Import all tasks with 'auto' field checked and with no 'submission date': a "
+"planified task (cron) run one task at once."
+msgstr ""
+"Importe toutes les tâches avec les champs 'Auto' coché et  'Date de "
+"soumission' vide : une action planifiée lance une tâche à la fois."
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,data_row_end:0
+msgid "Last Row"
+msgstr "Dernière Ligne"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,task_result:0
+msgid "Last Task Result"
+msgstr "Resultat de la dernière Tâche"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,write_uid:0
+#: field:google.spreadsheet.document,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,write_date:0
+#: field:google.spreadsheet.document,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,data_row_end:0
+msgid "Last row of data: 0 means last row"
+msgstr "Dernière ligne de données: 0 veut dire dernière ligne"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,model_id:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,name:0
+#: field:google.spreadsheet.document,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: connector_google_spreadsheet
+#: model:ir.actions.client,name:connector_google_spreadsheet.action_google_spreadsheet_backend
+msgid "Open Google Spreadsheet backend menu"
+msgstr "Open Google Spreadsheet backend menu"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,p12_key:0
+msgid "P12 key"
+msgstr "P12 key"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid ""
+"Please, complete required fields in configuration tab before to save the "
+"form."
+msgstr ""
+"Merci de compléter les champs requis dans l'onglet 'Configuration' avant "
+"d'enregistrer le formulaire."
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Run"
+msgstr "Lancer"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,sequence:0
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,document_sheet:0
+msgid "Sheet Name"
+msgstr "Nom de feuille"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.document:connector_google_spreadsheet.view_spreadsheet_task_tree
+msgid "Spreadsheet"
+msgstr "Feuille de calcul"
+
+#. module: connector_google_spreadsheet
+#: sql_constraint:google.spreadsheet.backend:0
+msgid "Spreadsheet Import Backend 'Name' field must be unique"
+msgstr ""
+"Le champ 'Nom' du Backend d'import de feuille de calcul doit être unique."
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Spreadsheet Location"
+msgstr "Localisation de la Feuille"
+
+#. module: connector_google_spreadsheet
+#: model:ir.actions.act_window,name:connector_google_spreadsheet.action_spreadsheet_task
+msgid "Spreadsheet Tasks"
+msgstr "Tâches de feuille de calcul"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,submission_date:0
+msgid "Submission date"
+msgstr "Date de soumission"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Tasks"
+msgstr "Tâches"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Toggle chunk size between 1 and 100"
+msgstr "Basculer l'extraction lignes entre 1 et 100"
+
+#. module: connector_google_spreadsheet
+#: view:google.spreadsheet.backend:connector_google_spreadsheet.view_google_spreadsheet_backend_form
+msgid "Trigger Initial Import"
+msgstr "Déclencher l'import initial"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.document,document_url:0
+msgid "URL"
+msgstr "URL"
+
+#. module: connector_google_spreadsheet
+#: help:google.spreadsheet.document,document_url:0
+msgid "URL of the spreadsheet"
+msgstr "URL de la feuille de calcul"
+
+#. module: connector_google_spreadsheet
+#: field:google.spreadsheet.backend,version:0
+msgid "Version"
+msgstr "Version"
+
+#. module: connector_google_spreadsheet
+#: selection:google.spreadsheet.backend,version:0
+msgid "Version 3"
+msgstr "Version 3"

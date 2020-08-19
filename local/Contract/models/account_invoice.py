@@ -9,4 +9,4 @@ class AccountMove(models.Model):
 
     # We keep this field for migration purpose
     old_contract_id = fields.Many2one(
-        'contract.contract', oldname='contract_id')
+        'contract.contract')

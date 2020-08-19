@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="sale_commission_tree_1">
-        <field name="name">Sales commissions tree 1</field>
-        <field name="model">sale.commission_1</field>
+    <record model="ir.ui.view" id="sale_commission_tree">
+        <field name="name">Sales commissions tree</field>
+        <field name="model">sale.commission</field>
         <field name="arch" type="xml">
             <tree string="Commissions">
                 <field name="name" />
@@ -11,12 +11,12 @@
             </tree>
         </field>
     </record>
-    <record model="ir.ui.view" id="sale_commission_form_1">
-        <field name="name">Sales commissions form 1</field>
-        <field name="model">sale.commission_1</field>
+    <record model="ir.ui.view" id="sale_commission_form">
+        <field name="name">Sales commissions form</field>
+        <field name="model">sale.commission</field>
         <field name="arch" type="xml">
             <form string="Commission">
-                <group string="Основная информация">
+                <group string="General information">
                     <group>
                         <field name="name" />
                         <field name="active" />
@@ -27,7 +27,7 @@
                         <field name="invoice_state" />
                     </group>
                 </group>
-                <group string="Определение цены" colspan="4">
+                <group string="Rates definition" colspan="4">
                     <group colspan="2">
                         <field
                             name="fix_qty"
@@ -51,23 +51,23 @@
             </form>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_commission_1">
-        <field name="name">Типы комиссий</field>
+    <record model="ir.actions.act_window" id="action_commission">
+        <field name="name">Commission types</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">sale.commission_1</field>
+        <field name="res_model">sale.commission</field>
         <field name="binding_view_types">form,tree</field>
     </record>
     <menuitem
-        name="Управление комиссиями"
-        id="menu_sale_commissions_management_1"
+        name="Commissions Management"
+        id="menu_sale_commissions_management"
         parent="sale.sale_menu_root"
         groups="sales_team.group_sale_manager"
         sequence="4"
     />
     <menuitem
-        name="Типы комиссий"
-        id="menu_sale_commissions_types_1"
-        parent="menu_sale_commissions_management_1"
-        action="action_commission_1"
+        name="Commission types"
+        id="menu_sale_commissions_types"
+        parent="menu_sale_commissions_management"
+        action="action_commission"
     />
 </odoo>

@@ -315,7 +315,6 @@
     <record id="action_customer_contract" model="ir.actions.act_window">
         <field name="name">Customer Contracts</field>
         <field name="res_model">contract.contract</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('contract_type', '=', 'sale')]</field>
         <field name="context">{'is_contract':1,
@@ -354,7 +353,6 @@
     <record id="action_supplier_contract" model="ir.actions.act_window">
         <field name="name">Supplier Contracts</field>
         <field name="res_model">contract.contract</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('contract_type', '=', 'purchase')]</field>
         <field name="context">{'is_contract':1,
