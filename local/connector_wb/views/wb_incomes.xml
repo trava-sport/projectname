@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_incomes_action' model='ir.actions.act_window'>
+        <field name="name">Incomes</field>
+        <field name="res_model">wb.incomes</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Wildberries" id="wb_base_menu" />
+    <menuitem name="Incomes" id="wb_incomes_menu" parent="wb_base_menu" action="wb_incomes_action"/>
+
+    <record id="wb_incomes_view_tree" model="ir.ui.view">
+        <field name="name">Incomes List</field>
+        <field name="model">wb.incomes</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="incomeid"/>
+                <field name="number"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_sales_action' model='ir.actions.act_window'>
+        <field name="name">Sales service</field>
+        <field name="res_model">wb.sales</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Sales service" id="wb_sales_menu" parent="wb_base_menu" action="wb_sales_action"/>
+
+    <record id="wb_sales_view_tree" model="ir.ui.view">
+        <field name="name">Sales service</field>
+        <field name="model">wb.sales</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nmid"/>
+                <field name="day_beg"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

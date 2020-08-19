@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_stocks_action' model='ir.actions.act_window'>
+        <field name="name">Stocks service</field>
+        <field name="res_model">wb.stocks</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Stocks service" id="wb_stocks_menu" parent="wb_base_menu" action="wb_stocks_action"/>
+
+    <record id="wb_stocks_view_tree" model="ir.ui.view">
+        <field name="name">Stocks service</field>
+        <field name="model">wb.stocks</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="last_change_date"/>
+                <field name="supplier_article"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

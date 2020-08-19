@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_orders_action' model='ir.actions.act_window'>
+        <field name="name">Orders</field>
+        <field name="res_model">wb.orders</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Orders" id="wb_orders_menu" parent="wb_base_menu" action="wb_orders_action"/>
+
+    <record id="wb_orders_view_tree" model="ir.ui.view">
+        <field name="name">Orders List</field>
+        <field name="model">wb.orders</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="number"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

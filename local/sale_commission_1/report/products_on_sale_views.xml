@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record model="ir.ui.view" id="view_products_on_sale_graph">
+            <field name="name">products.on.sale.graph</field>
+            <field name="model">products.on.sale</field>
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <graph string="Products on sale" type="bar">
+                    <field name="company_id"/>
+                    <field name="remains" type="measure" operator="+"/>
+                </graph>
+            </field>
+    </record> -->
+
+    <record id="view_products_on_sale_tree" model="ir.ui.view">
+            <field name="name">products.on.sale.tree</field>
+            <field name="model">products.on.sale</field>
+            <field name="priority" eval="52"/>
+            <field name="arch" type="xml">
+                <tree string="Product Margins">
+                    <field name="product_id" />
+                    <field name="barcode" />
+                    <field name="partner_id" />
+                    <field name="transferred" />
+                    <field name="paid" />
+                    <field name="paid_sum" />
+                    <field name="returned" />
+                    <field name="remains" />
+                </tree>
+            </field>
+    </record>
+
+    <record id="action_products_on_sale" model="ir.actions.act_window">
+        <field name="name">Products on sale</field>
+        <field name="res_model">products.on.sale</field>
+        <field name="binding_view_types">form,pivot,graph,tree</field>
+        <field name="binding_view_types">form</field>
+        <!-- <field name="search_view_id" ref="view_sale_commission_analysis_search" />
+        <field name="view_id" ref="view_sale_commission_analysis_graph" /> -->
+        <field
+            name="help"
+        >This report performs analysis on your commissions added in invoice lines. You can check the amount and lines that will be settled by date, product, product category, aget, etc. Use this report to perform analysis on invoice lines agents not beeing settled yet.</field>
+    </record>
+    <menuitem
+        action="action_products_on_sale"
+        id="menu_products_on_sale"
+        parent="account.account_reports_management_menu"
+        sequence="16"
+    />
+
+</odoo>
