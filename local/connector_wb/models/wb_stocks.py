@@ -25,3 +25,5 @@ class WBStocks(models.Model):
     days_on_site = fields.Integer('Number of days on the site', readonly=True)
     brand = fields.Char('Brand', readonly=True)
     sccode = fields.Char('Contract code', readonly=True)
+    price = fields.Char('Price', readonly=True)
+    discount = fields.Char('Discount', readonly=True)

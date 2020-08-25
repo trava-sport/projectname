@@ -17,6 +17,17 @@
             <tree>
                 <field name="incomeid"/>
                 <field name="number"/>
+                <field name="date"/>
+                <field name="last_change_date"/>
+                <field name="supplier_article"/>
+                <field name="tech_size"/>
+                <field name="barcode"/>
+                <field name="quantity"/>
+                <field name="total_price"/>
+                <field name="date_close"/>
+                <field name="warehouse_name"/>
+                <field name="nmid"/>
+                <field name="status"/>
             </tree>
         </field>
     </record>
