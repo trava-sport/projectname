@@ -16,7 +16,7 @@ class WBSales(models.Model):
     quantity = fields.Integer('Quantity', readonly=True)
     total_price = fields.Float('Initial retail price of the product', readonly=True)
     discount_percent = fields.Integer('An agreed discount on the product', readonly=True)
-    warehouse_name = fields.Char('Shipment warehouse', readonly=True)s
+    warehouse_name = fields.Char('Shipment warehouse', readonly=True)
     is_supply = fields.Char('Supply contract', readonly=True)
     is_realization = fields.Char('Sales agreement', readonly=True)
     order_id = fields.Integer('source order number', readonly=True,

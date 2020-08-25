@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_google_calendar_all,access_google_calendar_all,model_google_calendar,,1,0,0,0
-access_google_calendar,access_google_calendar,model_google_calendar,base.group_system,1,1,1,1
+access_wb_incomes,access_wb_incomes,model_wb_incomes,base.group_system,1,1,1,1
+access_wb_orders,access_wb_orders,model_wb_orders,base.group_system,1,1,1,1
+access_wb_paid_storage,access_wb_paid_storage,model_wb_paid_storage,base.group_system,1,1,1,1
+access_wb_sales,access_wb_sales,model_wb_sales,base.group_system,1,1,1,1
+access_wb_sales_report,access_wb_sales_report,model_wb_sales_report,base.group_system,1,1,1,1
+access_wb_stocks,access_wb_stocks,model_wb_stocks,base.group_system,1,1,1,1

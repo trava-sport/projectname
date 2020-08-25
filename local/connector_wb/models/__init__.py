@@ -1,7 +1,9 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from . import res_config_settings
-from . import calendar
-from . import google_calendar
-from . import res_users
+from . import wb_service
+from . import connector_wb
+from . import wb_orders
+from . import wb_paid_storage
+from . import wb_sales
+from . import wb_sales_report
+from . import wb_incomes
+from . import wb_stocks

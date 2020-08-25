@@ -15,7 +15,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="nmid"/>
-                <field name="day_beg"/>
+                <field name="date"/>
             </tree>
         </field>
     </record>
