@@ -4,6 +4,7 @@ from . import connector_wb
 from . import wb_orders
 from . import wb_paid_storage
 from . import wb_sales
-from . import wb_sales_report
+from . import wb_report_detail_by_period
 from . import wb_incomes
 from . import wb_stocks
+from . import wb_price

@@ -10,7 +10,8 @@
                         them before validation.
                     </p>
                     <group>
-                        <field name="date"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
                         <!-- <field name="advance_payment_method" class="oe_inline" widget="radio"
                             attrs="{'invisible': [('count','&gt;',1)]}"/>
                         <field name="has_down_payments" invisible="1" />
@@ -39,9 +40,20 @@
                             attrs="{'invisible': ['|', ('advance_payment_method', 'not in', ('fixed', 'percentage')), ('product_id', '!=', False)]}"/> -->
                     </group>
                     <footer>
-                        <button name="updat_wb_incomes" string="Update the WB income report" type="object"
+                        <button name="updat_wb_incomes" string="Update the WB income" type="object"
                             class="btn-primary"/>
-                        <button name="updat_wb_stocks" string="Update the WB stocks report" type="object"/>
+                        <button name="updat_wb_stocks" string="Update the WB stocks" type="object"
+                            class="btn-primary"/>
+                        <button name="updat_wb_orders" string="Update the WB orders" type="object"
+                            class="btn-primary"/>
+                        <button name="updat_wb_sales" string="Update the WB sales" type="object"
+                            class="btn-primary"/>
+                        <button name="updat_wb_report_detail_by_period" string="Update the WB report detail by period" type="object"
+                            class="btn-primary"/>
+                        <button name="updat_wb_sales_1" string="Update the WB sales report" type="object"
+                            class="btn-primary"/>
+                        <button name="updat_wb_report_detail_by_period_cron" string="Update the WB report detail by period cron" type="object"
+                            class="btn-primary"/>
                         <!-- <button string="Cancel" class="btn-secondary" special="cancel"/> -->
                     </footer>
                 </form>

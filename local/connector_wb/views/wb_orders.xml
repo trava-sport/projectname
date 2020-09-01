@@ -14,8 +14,25 @@
         <field name="model">wb.orders</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="date"/>
                 <field name="number"/>
+                <field name="date"/>
+                <field name="last_change_date_and_time"/>
+                <field name="supplier_article"/>
+                <field name="tech_size"/>
+                <field name="barcode"/>
+                <field name="quantity"/>
+                <field name="total_price"/>
+                <field name="discount_percent"/>
+                <field name="warehouse_name"/>
+                <field name="oblast"/>
+                <field name="income_id"/>
+                <field name="odid"/>
+                <field name="nmid"/>
+                <field name="subject"/>
+                <field name="category"/>
+                <field name="brand"/>
+                <field name="is_cancel"/>
+                <field name="cancel_dt"/>
             </tree>
         </field>
     </record>

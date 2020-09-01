@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_price_action' model='ir.actions.act_window'>
+        <field name="name">Pricing on wildberries</field>
+        <field name="res_model">wb.price</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Pricing on wildberries" id="wb_price_menu" parent="wb_base_menu" action="wb_price_action"/>
+
+    <record id="wb_price_view_form" model="ir.ui.view">
+        <field name="name">Pricing on wildberries Form</field>
+        <field name="model">wb.price</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="brand"/>
+                        <field name="subject"/>
+                        <field name="collection"/>
+                    </group>
+                    <group>
+                        <field name="supplier_article"/>
+                        <field name="nomenclature"/>
+                        <field name="standard_price"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="wb_price_view_tree" model="ir.ui.view">
+        <field name="name">Pricing on wildberries List</field>
+        <field name="model">wb.price</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="brand"/>
+                <field name="subject"/>
+                <field name="collection"/>
+                <field name="supplier_article"/>
+                <field name="nomenclature"/>
+                <field name="last_barcode"/>
+                <field name="number_days_site"/>
+                <field name="unmarketable"/>
+                <field name="date_Unmarketable"/>
+                <field name="turnover"/>
+                <field name="remainder_goods"/>
+                <field name="current_retail_price"/>
+                <field name="new_retail_price"/>
+                <field name="current_discount_site"/>
+                <field name="recommended_discount"/>
+                <field name="agreed_discount"/>
+                <field name="current_promo_code_discount"/>
+                <field name="new_promo_code_discount"/>
+                <field name="current_price_discounts"/>
+                <field name="current_price_disc_promo_code"/>
+                <field name="new_price_discounts"/>
+                <field name="new_price_disc_promo_code"/>
+                <field name="standard_price"/>
+                <field name="current_net_profit"/>
+                <field name="new_net_profit"/>
+                <!-- <field name="price_per_piece"/> -->
+            </tree>
+        </field>
+    </record>
+
+</odoo>

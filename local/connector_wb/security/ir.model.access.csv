@@ -3,5 +3,6 @@ access_wb_incomes,access_wb_incomes,model_wb_incomes,base.group_system,1,1,1,1
 access_wb_orders,access_wb_orders,model_wb_orders,base.group_system,1,1,1,1
 access_wb_paid_storage,access_wb_paid_storage,model_wb_paid_storage,base.group_system,1,1,1,1
 access_wb_sales,access_wb_sales,model_wb_sales,base.group_system,1,1,1,1
-access_wb_sales_report,access_wb_sales_report,model_wb_sales_report,base.group_system,1,1,1,1
+access_wb_report_detail,access_wb_report_detail,model_wb_report_detail,base.group_system,1,1,1,1
 access_wb_stocks,access_wb_stocks,model_wb_stocks,base.group_system,1,1,1,1
+access_wb_price,access_wb_price,model_wb_price,base.group_system,1,1,1,1

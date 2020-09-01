@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class WBPaidStorage(models.Model):
@@ -7,8 +7,8 @@ class WBPaidStorage(models.Model):
     _name = 'wb.paid.storage'
     _description = 'Paid storage is a fact'
 
-    day_beg = fields.Date('Date-start of the storage period', readonly=True)
-    day_end  = fields.Date('Date-end of the storage period', readonly=True)
+    day_beg = fields.Datetime('Date-start of the storage period', readonly=True)
+    day_end  = fields.Datetime('Date-end of the storage period', readonly=True)
     nmid = fields.Integer('WB code', readonly=True)
     tech_size = fields.Char('Size', readonly=True)
     days_on_site = fields.Char('Days on the site', readonly=True)

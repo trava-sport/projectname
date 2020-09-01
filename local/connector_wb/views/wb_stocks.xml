@@ -16,6 +16,24 @@
             <tree>
                 <field name="last_change_date"/>
                 <field name="supplier_article"/>
+                <field name="tech_size"/>
+                <field name="barcode"/>
+                <field name="quantity"/>
+                <field name="is_supply"/>
+                <field name="is_realization"/>
+                <field name="quantity_full"/>
+                <field name="quantity_not_in_orders"/>
+                <field name="warehouse_name"/>
+                <field name="in_way_to_client"/>
+                <field name="in_way_from_client"/>
+                <field name="nmid"/>
+                <field name="subject"/>
+                <field name="category"/>
+                <field name="days_on_site"/>
+                <field name="brand"/>
+                <field name="sccode"/>
+                <field name="price"/>
+                <field name="discount"/>
             </tree>
         </field>
     </record>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_report_detail_by_period_action' model='ir.actions.act_window'>
+        <field name="name">Sales report on sales</field>
+        <field name="res_model">wb.report.detail</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Report detail by period" id="wb_report_detail_by_period_menu" parent="wb_base_menu" action="wb_report_detail_by_period_action"/>
+
+    <record id="wb_report_detail_by_period_view_tree" model="ir.ui.view">
+        <field name="name">Report detail by period</field>
+        <field name="model">wb.report.detail</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="realizationreport_id"/>
+                <field name="suppliercontract_code"/>
+                <field name="rr_dt_and_time"/>
+                <field name="rrd_id"/>
+                <field name="gi_id"/>
+                <field name="subject_name"/>
+                <field name="nm_id"/>
+                <field name="brand_name"/>
+                <field name="sa_name"/>
+                <field name="ts_name"/>
+                <field name="barcode"/>
+                <field name="doc_type_name"/>
+                <field name="quantity"/>
+                <field name="nds"/>
+                <field name="cost_amount"/>
+                <field name="retail_price"/>
+                <field name="retail_amount"/>
+                <field name="retail_commission"/>
+                <field name="sale_percent"/>
+                <field name="commission_percent"/>
+                <field name="customer_reward"/>
+                <field name="supplier_reward"/>
+                <field name="office_name"/>
+                <field name="supplier_oper_name"/>
+                <field name="order_dt"/>
+                <field name="sale_dt"/>
+                <field name="shk_id"/>
+                <field name="retail_price_withdisc_rub"/>
+                <field name="for_pay_nds"/>
+                <field name="delivery_amount"/>
+                <field name="return_amount"/>
+                <field name="delivery_rub"/>
+                <field name="gi_box_type_name"/>
+                <field name="product_discount_for_report"/>
+                <field name="supplier_promo"/>
+                <field name="supplier_spp"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

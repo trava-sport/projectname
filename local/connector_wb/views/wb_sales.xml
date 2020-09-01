@@ -14,8 +14,35 @@
         <field name="model">wb.sales</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="nmid"/>
+                <field name="number"/>
                 <field name="date"/>
+                <field name="last_change_date_and_time"/>
+                <field name="supplier_article"/>
+                <field name="tech_size"/>
+                <field name="barcode"/>
+                <field name="quantity"/>
+                <field name="total_price"/>
+                <field name="discount_percent"/>
+                <field name="is_supply"/>
+                <field name="is_realization"/>
+                <field name="order_id"/>
+                <field name="promo_code_discount"/>
+                <field name="warehouse_name"/>
+                <field name="country_name"/>
+                <field name="oblast_okrug_name"/>
+                <field name="region_name"/>
+                <field name="income_id"/>
+                <field name="sale_id"/>
+                <field name="odid"/>
+                <field name="spp"/>
+                <field name="for_pay"/>
+                <field name="finished_price"/>
+                <field name="price_with_disc"/>
+                <field name="nmid"/>
+                <field name="subject"/>
+                <field name="category"/>
+                <field name="brand"/>
+                <field name="is_storno"/>
             </tree>
         </field>
     </record>

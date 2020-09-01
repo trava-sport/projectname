@@ -7,7 +7,7 @@ class WBStocks(models.Model):
     _name = 'wb.stocks'
     _description = 'Stocks service'
 
-    last_change_date = fields.Date('Date and time when the information was updated in service', readonly=True)
+    last_change_date = fields.Datetime('Date and time when the information was updated in service', readonly=True)
     supplier_article = fields.Char('Your article', readonly=True)
     tech_size = fields.Char('Size', readonly=True)
     barcode = fields.Char('Barcode', readonly=True)
@@ -25,5 +25,5 @@ class WBStocks(models.Model):
     days_on_site = fields.Integer('Number of days on the site', readonly=True)
     brand = fields.Char('Brand', readonly=True)
     sccode = fields.Char('Contract code', readonly=True)
-    price = fields.Char('Price', readonly=True)
-    discount = fields.Char('Discount', readonly=True)
+    price = fields.Integer('Price', readonly=True)
+    discount = fields.Integer('Discount', readonly=True)
